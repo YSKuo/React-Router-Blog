@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/repo-name/static/js/main.57defa4d.chunk.js",
-    "main.js.map": "/repo-name/static/js/main.57defa4d.chunk.js.map",
-    "runtime-main.js": "/repo-name/static/js/runtime-main.6e89b2ce.js",
-    "runtime-main.js.map": "/repo-name/static/js/runtime-main.6e89b2ce.js.map",
-    "static/js/2.4531c473.chunk.js": "/repo-name/static/js/2.4531c473.chunk.js",
-    "static/js/2.4531c473.chunk.js.map": "/repo-name/static/js/2.4531c473.chunk.js.map",
-    "index.html": "/repo-name/index.html",
-    "static/js/2.4531c473.chunk.js.LICENSE.txt": "/repo-name/static/js/2.4531c473.chunk.js.LICENSE.txt"
+    "main.js": "/React-Router-Blog/static/js/main.57defa4d.chunk.js",
+    "main.js.map": "/React-Router-Blog/static/js/main.57defa4d.chunk.js.map",
+    "runtime-main.js": "/React-Router-Blog/static/js/runtime-main.a9dfeea2.js",
+    "runtime-main.js.map": "/React-Router-Blog/static/js/runtime-main.a9dfeea2.js.map",
+    "static/js/2.c7ab1c22.chunk.js": "/React-Router-Blog/static/js/2.c7ab1c22.chunk.js",
+    "static/js/2.c7ab1c22.chunk.js.map": "/React-Router-Blog/static/js/2.c7ab1c22.chunk.js.map",
+    "index.html": "/React-Router-Blog/index.html",
+    "static/js/2.c7ab1c22.chunk.js.LICENSE.txt": "/React-Router-Blog/static/js/2.c7ab1c22.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.6e89b2ce.js",
-    "static/js/2.4531c473.chunk.js",
+    "static/js/runtime-main.a9dfeea2.js",
+    "static/js/2.c7ab1c22.chunk.js",
     "static/js/main.57defa4d.chunk.js"
   ]
 }
