@@ -25,6 +25,7 @@ export default function SignUpPage() {
   const history = useHistory();
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     setErrorMessage(null); // 先把錯誤訊息抹掉
     signUp(nickname, username, password).then((data) => {
       if (data.ok === 0) {
