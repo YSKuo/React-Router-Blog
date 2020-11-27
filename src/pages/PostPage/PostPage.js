@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { useParams } from 'react-router-dom';
-import { getPost } from '../../WebAPI';
+import { getPost } from '../../redux/reducers/postReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Post = styled.div`
   box-sizing: border-box;
@@ -28,12 +29,14 @@ const PostContent = styled.p`
 `;
 
 export default function PostPage() {
-  const [post, setPost] = useState({});
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const isLoading = useSelector((store) => store.posts.isLoadingPost);
+  const post = useSelector((store) => store.posts.post);
 
   useEffect(() => {
-    getPost(id).then((post) => setPost(post[0]))
-  }, [])
+    dispatch(getPost(id))
+  }, [id, dispatch])
 
   return (
     <Post>

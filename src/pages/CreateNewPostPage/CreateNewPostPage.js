@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { sendNewPost } from '../../WebAPI';
 import { useHistory } from 'react-router-dom';
+import { newPost, setNewPostResponse } from '../../redux/reducers/postReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ErrorMessage = styled.div`
   color: red;
@@ -44,16 +45,22 @@ export default function CreateNewPostPage() {
   const [body, setBody] = useState('');
   const [errorMessage, setErrorMessage] = useState();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const newPostResponse = useSelector((store) => store.posts.newPostResponse);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sendNewPost(title, body).then((data) => {
-      if (data.ok === 0) {
-        return setErrorMessage(data.message);
+    dispatch(
+      newPost({
+        title,
+        body
+      })
+    ).then(newPostResponse => {
+      if (newPostResponse && newPostResponse.id) {
+        history.push('/post/' + newPostResponse.id);
       }
-      history.push('/');
-    })
-  }
+    });
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -70,7 +77,7 @@ export default function CreateNewPostPage() {
         />
       </Content>
       <SubmitButton>發表</SubmitButton>
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {/* {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>} */}
     </Form>
   );
 }
