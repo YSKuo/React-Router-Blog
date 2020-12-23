@@ -9,7 +9,9 @@ export const getPosts = () => {
 };
 
 export const getPost = (id) => {
-  return fetch(`${BASE_URL}/posts?id=${id}`).then((res) => res.json());
+  return fetch(`${BASE_URL}/posts?id=${id}&_expand=user`).then((res) =>
+    res.json()
+  );
 };
 
 export const signUp = (nickname, username, password) => {
@@ -48,7 +50,7 @@ export const getMe = () => {
   }).then((res) => res.json());
 };
 
-export const sendNewPost = (title, body) => {
+export const sendNewPost = ({ title, body }) => {
   const token = getAuthToken();
   return fetch(`${BASE_URL}/posts`, {
     method: "POST",
@@ -60,5 +62,26 @@ export const sendNewPost = (title, body) => {
       title,
       body,
     }),
+  }).then((res) => res.json());
+};
+
+export const editOldPost = ({ id, title, body }) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts/${id}`, {
+    method: "PATCH",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      title,
+      body,
+    }),
+  }).then((res) => res.json());
+};
+
+export const deletePost = (id) => {
+  return fetch(`${BASE_URL}/posts/${id}`, {
+    method: "DELETE",
   }).then((res) => res.json());
 };
