@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import { newPost } from "../../redux/reducers/postReducer";
+import { useParams, useHistory } from "react-router-dom";
+import { getPost, editPost } from "../../redux/reducers/postReducer";
 import { useDispatch, useSelector } from "react-redux";
 
 const ErrorMessage = styled.div`
@@ -40,13 +40,24 @@ const ContentTextarea = styled.textarea`
 
 const SubmitButton = styled.button``;
 
-export default function CreateNewPostPage() {
+export default function EditPostPage() {
+  const { id } = useParams();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [errorMessage, setErrorMessage] = useState();
   const history = useHistory();
   const dispatch = useDispatch();
+  const post = useSelector((store) => store.posts.post);
   const user = useSelector((store) => store.users.user);
+
+  useEffect(() => {
+    dispatch(getPost(id));
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    setTitle(post.title);
+    setBody(post.body);
+  }, [post]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,7 +69,8 @@ export default function CreateNewPostPage() {
     // dispatch 完 thunk 會回傳 promise
     // 所以就可以 then 下去
     dispatch(
-      newPost({
+      editPost({
+        id,
         title,
         body,
       })
@@ -69,8 +81,8 @@ export default function CreateNewPostPage() {
     });
   };
 
-  if (!user) {
-    history.push("/"); // 如果沒有登入就把頁面導向首頁
+  if (!user || user.id !== post.user.id) {
+    history.push("/"); // 如果沒有權限就把頁面導向首頁
   }
 
   return (

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Content = styled.div`
   display: flex;
@@ -21,10 +21,10 @@ const Introduction = styled.p``;
 const Image = styled.div`
   flex: 1;
   height: 300px;
-  background-image: url('https://mcdonalds.com.au/sites/mcdonalds.com.au/files/Product-Details-BigMac-mobile-201904.jpg');
+  background-image: url("https://mcdonalds.com.au/sites/mcdonalds.com.au/files/Product-Details-BigMac-mobile-201904.jpg");
   background-size: cover;
   background-position: center center;
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
 `;
 
 export default function AboutPage() {
@@ -33,7 +33,8 @@ export default function AboutPage() {
       <Text>
         <Greeting>嗨~ 我是 YSKuo.</Greeting>
         <Introduction>
-          我是 YSKuo 喜歡「無敵大麥克」，這是用來練習 React Router 及串 API 的作業。
+          我是 YSKuo 喜歡「無敵大麥克」，這是用來練習 React Router 及串 API
+          的作業。
         </Introduction>
       </Text>
       <Image />

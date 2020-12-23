@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-
-import { useParams } from 'react-router-dom';
-import { getPost } from '../../redux/reducers/postReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { getPost, deletePost } from "../../redux/reducers/postReducer";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
 const Post = styled.div`
   box-sizing: border-box;
@@ -30,19 +30,45 @@ const PostContent = styled.p`
 
 export default function PostPage() {
   const { id } = useParams();
+  const history = useHistory();
   const dispatch = useDispatch();
   const isLoading = useSelector((store) => store.posts.isLoadingPost);
   const post = useSelector((store) => store.posts.post);
+  const user = useSelector((store) => store.users.user);
 
   useEffect(() => {
-    dispatch(getPost(id))
-  }, [id, dispatch])
+    dispatch(getPost(id));
+  }, [id, dispatch]);
+
+  const handleDelete = () => {
+    dispatch(deletePost(id)).then((res) => {
+      console.log("delete");
+      history.push("/");
+    });
+  };
 
   return (
     <Post>
-      <PostTitle>{post.title}</PostTitle>
-      <PostCreatedAt><b>寫於：</b>{new Date(post.createdAt).toLocaleString()}</PostCreatedAt>
-      <PostContent>{post.body}</PostContent>
+      {isLoading ? (
+        <h1>Loading...</h1>
+      ) : (
+        <>
+          {user.id === post.user.id && (
+            <div>
+              <button onClick={handleDelete}>delete</button>
+              <Link to={`/edit-post/${id}`}>
+                <button>edit</button>
+              </Link>
+            </div>
+          )}
+          <PostTitle>{post.title}</PostTitle>
+          <PostCreatedAt>
+            <b>寫於：</b>
+            {new Date(post.createdAt).toLocaleString()}
+          </PostCreatedAt>
+          <PostContent>{post.body}</PostContent>
+        </>
+      )}
     </Post>
   );
 }
